@@ -9,19 +9,7 @@ packages:
   - docker.io
   - curl
   - git
-  - snapd
-
-users:
-  - default
-  - name: kamal
-    groups:
-      - sudo
-    sudo:
-      - ALL=(ALL) NOPASSWD:ALL
-    shell: /bin/bash
-    ssh_import_id:
-      - gh:lubieniebieski
-    uid: 1000
+  - btop
 
 write_files:
   - path: /etc/netplan/01-netplan.yaml
@@ -39,10 +27,8 @@ write_files:
 runcmd:
   - netplan apply
   - sed -i '/PermitRootLogin/d' /etc/ssh/sshd_config
-  - echo "PermitRootLogin no" >> /etc/ssh/sshd_config
+  - echo "PermitRootLogin prohibit-password" >> /etc/ssh/sshd_config
   - systemctl restart sshd
-  - usermod -aG docker kamal
-  - snap install btop
   - apt update
   - apt upgrade -y --allow-downgrades --allow-remove-essential --allow-change-held-packages
   - reboot

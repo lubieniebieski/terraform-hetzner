@@ -1,6 +1,11 @@
-resource "hcloud_ssh_key" "ssh_key_for_hetzner" {
+resource "hcloud_ssh_key" "deploy_key" {
   name       = "ssh-key-${var.project_name}"
   public_key = file("~/.ssh/${var.project_name}.pub")
+}
+
+resource "hcloud_ssh_key" "user_key" {
+  name       = "user-key"
+  public_key = file("~/.ssh/hetzner.pub")
 }
 
 resource "hcloud_network" "network" {
@@ -34,7 +39,8 @@ resource "hcloud_server" "web" {
   }
 
   ssh_keys = [
-    hcloud_ssh_key.ssh_key_for_hetzner.id
+    hcloud_ssh_key.deploy_key,
+    hcloud_ssh_key.user_key
   ]
 
   depends_on = [
@@ -66,7 +72,8 @@ resource "hcloud_server" "accessories" {
   }
 
   ssh_keys = [
-    hcloud_ssh_key.ssh_key_for_hetzner.id
+    hcloud_ssh_key.deploy_key,
+    hcloud_ssh_key.user_key
   ]
 
   public_net {
