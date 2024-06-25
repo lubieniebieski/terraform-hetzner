@@ -1,6 +1,6 @@
 resource "hcloud_ssh_key" "ssh_key_for_hetzner" {
-  name       = "ssh-key-for-hetzner"
-  public_key = file("~/.ssh/hetzner.pub")
+  name       = "ssh-key-" + var.project_name
+  public_key = file("~/.ssh/${var.project_name}.pub")
 }
 
 resource "hcloud_network" "network" {

@@ -31,3 +31,8 @@ variable "accessories_count" {
   type    = number
   default = 1
 }
+
+variable "project_name" {
+  type    = string
+  default = "my_project"
+}
