@@ -22,7 +22,7 @@ resource "hcloud_network_subnet" "network_subnet" {
 
 resource "hcloud_server" "web" {
   count       = var.web_servers_count
-  name        = var.web_servers_count > 1 ? "web-${count.index + 1}" : "web"
+  name        = var.web_servers_count > 1 ? "${var.project_name}-web-${count.index + 1}" : "${var.project_name}-web"
   image       = var.operating_system
   server_type = var.server_type
   location    = var.region
@@ -55,7 +55,7 @@ resource "hcloud_server" "web" {
 
 resource "hcloud_server" "accessories" {
   count       = var.accessories_count
-  name        = var.accessories_count > 1 ? "accessories-${count.index + 1}" : "accessories"
+  name        = var.accessories_count > 1 ? "${var.project_name}-accessories-${count.index + 1}" : "${var.project_name}-accessories"
   image       = var.operating_system
   server_type = var.server_type
   location    = var.region
