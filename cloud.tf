@@ -39,8 +39,8 @@ resource "hcloud_server" "web" {
   }
 
   ssh_keys = [
-    hcloud_ssh_key.deploy_key,
-    hcloud_ssh_key.user_key
+    hcloud_ssh_key.deploy_key.id,
+    hcloud_ssh_key.user_key.id
   ]
 
   depends_on = [
@@ -72,8 +72,8 @@ resource "hcloud_server" "accessories" {
   }
 
   ssh_keys = [
-    hcloud_ssh_key.deploy_key,
-    hcloud_ssh_key.user_key
+    hcloud_ssh_key.deploy_key.id,
+    hcloud_ssh_key.user_key.id
   ]
 
   public_net {
